@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const xssClean = require('xss-clean');
 const rateLimit = require('express-rate-limit');
+const userRouter = require('./routers/userRouter');
 const app = express();
 
 const rateLimiter = rateLimit({
@@ -17,17 +18,11 @@ app.use(rateLimiter);
 app.use(xssClean());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('api/user', userRouter);
 
 app.get('/test', (req, res) => {
     res.status(200).send({
         message: 'server working is fine',
-    });
-});
-
-app.get('/api/user', (req, res) => {
-    console.log('middleware returned');
-    res.status(200).send({
-        message: 'user found',
     });
 });
 
