@@ -1,9 +1,12 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
+
+app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
     res.status(200).send({
-        message: 'Api is working fine',
+        message: 'Api is working and fine',
     });
 });
 
